@@ -1,3 +1,4 @@
+//ulike funskjoner som health og inventory til karakteren
 let xp = 0;
 let health = 100;
 let gold = 50;
@@ -16,7 +17,7 @@ const goldText = document.querySelector("#goldText");
 const monsterStats = document.querySelector("#monsterStats");
 const monsterNameText = document.querySelector("#monsterName");
 const monsterHealthText = document.querySelector("#monsterHealth");
-
+//ulike våpen som er lagt til i koden
 const weapons = [
     {
         name: "stick",
@@ -35,7 +36,7 @@ const weapons = [
         power: 100
     }
 ];
-
+//ulike monstre som ble lagt til i koden
 const monsters = [
     {
         name:"slime",
@@ -53,7 +54,7 @@ const monsters = [
         health: 300
     }
 ];
-
+//dette er koden til lokasjon hvor du blir sendt utifra hva du trykker på av de tre knappene
 const locations = [
     {
         name: "town square",
@@ -110,7 +111,7 @@ const locations = [
 button1.onclick = goStore;
 button2.onclick = goCave;
 button3.onclick = fightDragon;
-
+//får knappene til å sende deg videre 
 function update(location) {
     monsterStats.style.display = "none";
     button1.innerText = location["button text"][0];
@@ -134,7 +135,7 @@ function goCave() {
     update(locations[2]);
 }
 
-
+//en if else loop som gir deg health mot gold hvis du ikke har råd forteller den deg
 function buyHealth() {
     if (gold >= 10) {
         gold -= 10
@@ -146,7 +147,8 @@ function buyHealth() {
     }
 
 }
-
+//en to if else som den første forteller deg når du har kjøpt alle mulige våpen 
+// og den andre legger til våpen i inventory og sier om du ikke har råd om du har for lite gull
 function buyWeapon() {
     if (currentWeapon < weapons.length - 1) {
         if (gold >= 30) {
@@ -166,7 +168,7 @@ function buyWeapon() {
         button2.onclick = sellWeapon;    
     }
 }
-
+//en funskjon for å selge våpen hvis du skulle trengt for mer health for eksempel
 function sellWeapon() {
     if (inventory.length > 1) {
         gold += 15;
@@ -177,7 +179,7 @@ function sellWeapon() {
         text.innerText = "Don't sell your only weapon!";
     }
 }
-
+// FIGHT funskjoner mot uliker monstrre inngår i en fight
 function fightSlime() {
     fighting = 0;
     goFight();
@@ -199,7 +201,7 @@ function goFight() {
     monsterNameText.innerText = monsters[fighting].name;
     monsterHealthText.innerText = monsterHealth;
 }
-
+//funskjon som forteller angrep mot monstre du sloss mot
 function attack() {
     text.innerText = "The " + monsters[fighting].name + " attacks.";
     text.innerText += " You attack it with your " + weapons[currentWeapon].name + ".";
@@ -209,12 +211,13 @@ function attack() {
     } else {
         text.innerText += " You miss.";
     }
-
+    //en funskjon som sier om spiller har 0 health man taper om monster har null health du får xp 
+    //muligens wingame eller defeat monster
     monsterHealth -= weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;
     healthText.innerText = health;
     monsterHealthText.innerText = monsterHealth;
     if (health <= 0) {
-        localStorage();
+        lose();
     } else if (monsterHealth <= 0) {
         fighting === 2 ? winGame() : defeatMonster();
     }
@@ -264,7 +267,7 @@ function restart() {
     xpText.innerText = xp;
     goTown();
 }
-
+//en easter egg funskjon hvis man trykker på go to town square
 function easterEgg() {
     update(locations[7]);
 }
@@ -275,7 +278,7 @@ function pickEight(){
 function pickTwo(){
     pick(2);
 }
-
+//et gjette system mellom 2 og 8 og gå ut av easter egg spill
 function pick(guess) {
     let numbers = [];
     while (numbers.length < 10) {
