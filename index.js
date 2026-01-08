@@ -125,14 +125,19 @@ function update(location) {
 
 function goTown() {
     update(locations[0]);
+     document.getElementById("bilde").src = "natur.jpg";
+
 }
 
 function goStore() {
     update(locations[1]);
+     document.getElementById("bilde").src = "scam.jpg";
 }
 
 function goCave() {
     update(locations[2]);
+   
+    document.getElementById("bilde").src = "mine.jpg";
 }
 
 //en if else loop som gir deg health mot gold hvis du ikke har råd forteller den deg
@@ -189,6 +194,10 @@ function fightBeast() {
     goFight();
 }
 
+
+ 
+
+
 function fightDragon() {
     fighting = 2;
     goFight();
@@ -196,6 +205,7 @@ function fightDragon() {
 
 function goFight() {
     update(locations[3]);
+    document.getElementById("bilde").src = "spill bilde.jpg";
     monsterHealth = monsters[fighting].health;
     monsterStats.style.display = "block";
     monsterNameText.innerText = monsters[fighting].name;
